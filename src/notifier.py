@@ -14,14 +14,14 @@ logger.setLevel(logging.INFO)
 
 def send_email_notification(subject: str, body: str, html_body: Optional[str] = None) -> None:
     """Sends an email notification."""
-    sender_email = os.environ["SENDER_EMAIL"]
-    receiver_email = os.environ["RECEIVER_EMAIL"]
+    email_sender = os.environ["EMAIL_SENDER"]
+    email_receiver = os.environ["EMAIL_RECEIVER"]
     password = os.environ["EMAIL_PASSWORD"]
 
-    logger.info(f"Preparing to send email from {sender_email} to {receiver_email} with subject '{subject}'")
+    logger.info(f"Preparing to send email from {email_sender} to {email_receiver} with subject '{subject}'")
     msg = MIMEMultipart('alternative')
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
+    msg['From'] = email_sender
+    msg['To'] = email_receiver
     msg['Subject'] = subject
 
     msg.attach(MIMEText(body, 'plain'))
@@ -31,7 +31,7 @@ def send_email_notification(subject: str, body: str, html_body: Optional[str] = 
     try:
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
-            server.login(sender_email, password)
+            server.login(email_sender, password)
             server.send_message(msg)
         logger.info("Email sent successfully.")
     except Exception as e:
