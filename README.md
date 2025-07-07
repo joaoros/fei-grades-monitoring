@@ -1,4 +1,4 @@
-# FEI Grades Monitor Lambda
+# FEI Grades Monitor
 
 This project is an AWS Lambda function that periodically (via EventBridge) scrapes grades from the University Center of FEI portal, stores the data in a DynamoDB database, and sends email notifications if there are any grade changes.
 
@@ -20,7 +20,7 @@ fei-grades-monitor-lambda
 
 ### 1. Prerequisites
 - Python 3.9
-- AWS account (Free Tier)
+- AWS account
 
 ### 2. Installing Dependencies
 
